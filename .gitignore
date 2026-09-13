@@ -1,0 +1,68 @@
+# Local configuration and secrets
+.env
+.env.*
+!.env.example
+
+# Python environments and bytecode
+.venv/
+.venv-*/
+venv/
+env/
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Type checking, tests, linting, and coverage
+.mypy_cache/
+.pytest_cache/
+.ruff_cache/
+.hypothesis/
+.tox/
+.nox/
+.coverage
+.coverage.*
+coverage.xml
+htmlcov/
+
+# Packaging
+dist/
+build/
+*.egg-info/
+pip-wheel-metadata/
+
+# AtlasMind generated data and model files
+artifacts/
+data/
+corpus/
+indexes/
+models/
+cache/
+checkpoints/
+*.ckpt
+*.pt
+*.pth
+*.safetensors
+*.onnx
+
+# Runtime logs and local databases
+logs/
+*.log
+*.log.*
+*.sqlite
+*.sqlite3
+*.db
+
+# ML experiment output
+mlruns/
+wandb/
+
+# Notebooks
+.ipynb_checkpoints/
+
+# Editors and operating systems
+.DS_Store
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
