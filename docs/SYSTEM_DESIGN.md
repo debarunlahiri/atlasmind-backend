@@ -26,7 +26,7 @@ Expansion JSONL         PostgreSQL corpus + pgvector
           +----------+----------+
                      |
                      v
-      SmolVLM2 text + image generation on Apple MPS
+      Qwen2.5-VL text + image generation on Apple MPS
                      |
                      v
        JSON response or Server-Sent Events stream
@@ -185,7 +185,7 @@ accept those embeddings without adding a hosted API.
 ## Multimodal generation
 
 The RAG layer sends retrieved Wikipedia passages, the user's question, and an
-optional image to the Apache-2.0 SmolVLM2 500M vision-language model. The model is
+optional image to the Apache-2.0 Qwen2.5-VL 3B vision-language model. The model is
 loaded lazily through Transformers, cached below the Expansion storage root, and
 moved to PyTorch's `mps` device in float16 on Apple Silicon. CLI images are local
 files; REST images are decoded from base64 and are never forwarded to a hosted

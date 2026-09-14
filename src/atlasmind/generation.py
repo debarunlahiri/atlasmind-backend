@@ -8,7 +8,7 @@ from typing import Any, Optional
 import torch
 from PIL import Image
 
-DEFAULT_MULTIMODAL_MODEL = "HuggingFaceTB/SmolVLM2-500M-Video-Instruct"
+DEFAULT_MULTIMODAL_MODEL = "Qwen/Qwen2.5-VL-3B-Instruct"
 
 
 def resolve_compute_device(device_name: str) -> torch.device:
@@ -55,7 +55,8 @@ class LocalMultimodalGenerator:
         if self._model is None or self._processor is None:
             if find_spec("torchvision") is None:
                 raise RuntimeError(
-                    "SmolVLM requires torchvision, but it is not installed in AtlasMind's "
+                    "The multimodal model requires torchvision, but it is not installed in "
+                    "AtlasMind's "
                     "virtual environment. Run '.venv/bin/python -m pip install -r "
                     "requirements.txt' and restart the API server."
                 )
@@ -88,7 +89,8 @@ class LocalMultimodalGenerator:
                 ).to(self.device)
             except (ImportError, ModuleNotFoundError) as error:
                 raise RuntimeError(
-                    "AtlasMind could not load SmolVLM's processor. Install all packages "
+                    "AtlasMind could not load the configured multimodal model or processor. "
+                    "Install all packages "
                     "from requirements.txt and restart the API server. "
                     f"Underlying error: {error}"
                 ) from error

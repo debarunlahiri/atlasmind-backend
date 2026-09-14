@@ -156,3 +156,42 @@ def test_context_detection_requires_a_referential_follow_up() -> None:
         "Who is the CEO of Trump Tower?",
         history,
     )
+
+
+def test_context_detection_recognizes_what_will_happen_next() -> None:
+    history = [
+        {"role": "user", "content": "What does this image mean?"},
+        {"role": "assistant", "content": "It shows a discussion about AI regulation."},
+    ]
+
+    assert KnowledgeRagService.uses_conversation_context(
+        "What will happen next?",
+        history,
+    )
+    retrieval_question = KnowledgeRagService._retrieval_question(
+        "What will happen next?",
+        history,
+    )
+    assert "discussion about AI regulation" in retrieval_question
+    assert retrieval_question.endswith("What will happen next?")
+
+
+def test_image_reference_question_skips_unrelated_text_retrieval() -> None:
+    generator = FakeGenerator()
+    articles = FakeArticles()
+    service = KnowledgeRagService(articles, EmptySearch(), generator)
+
+    answer = service.answer(
+        "What does this image mean?",
+        image=Image.new("RGB", (4, 4)),
+    )
+
+    assert answer.sources == []
+    assert "Use the attached image as visual evidence" in generator.prompt
+
+
+def test_image_question_can_still_request_current_web_context() -> None:
+    assert KnowledgeRagService.should_retrieve_sources(
+        "Find the latest news about this image",
+        includes_image=True,
+    )

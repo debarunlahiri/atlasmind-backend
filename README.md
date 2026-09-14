@@ -25,13 +25,24 @@ The local hashing embedder and local model also require no hosted API.
 - A separate [API reference](docs/API.md) with URLs, bodies, headers, responses,
   and cURL examples.
 
+## Documentation
+
+- [Code reference](docs/CODE_REFERENCE.md): package map, component responsibilities,
+  public interfaces, data contracts, extension points, and test coverage.
+- [System design](docs/SYSTEM_DESIGN.md): architecture, data flow, persistence,
+  privacy, scaling, and operational decisions.
+- [API reference](docs/API.md): request and response contracts, streaming events,
+  errors, and cURL examples.
+- [AI/ML curriculum](docs/CURRICULUM.md): a learning path built around the project.
+- [Notebook guide](notebooks/README.md): conventions for corpus exploration.
+
 ## Multimodal model
 
 Generation uses the open-source
-[`HuggingFaceTB/SmolVLM2-500M-Video-Instruct`](https://huggingface.co/HuggingFaceTB/SmolVLM2-500M-Video-Instruct)
-vision-language model under the Apache-2.0 license. The 500M variant was selected
-for this Apple Silicon Mac with 16 GB unified memory because it leaves substantially
-more memory headroom than the 2.2B checkpoint while supporting both text and images.
+[`Qwen/Qwen2.5-VL-3B-Instruct`](https://huggingface.co/Qwen/Qwen2.5-VL-3B-Instruct)
+vision-language model under the Apache-2.0 license. The 3B checkpoint supports both
+text and images and offers substantially stronger reasoning and instruction following
+than the previous 500M model while remaining suitable for a 16 GB Apple Silicon Mac.
 
 The model runs inside this process through PyTorch and Hugging Face Transformers.
 It does not send questions or images to an inference provider. The first generation
@@ -109,9 +120,8 @@ Installing the requirements does not download the configured model immediately.
 The model is downloaded on the first generation request unless it already exists
 in the configured cache.
 
-If the API reports that it cannot import or load `SmolVLMProcessor`, synchronize
-the environment and restart the automatically reloading server. The processor
-requires both `torchvision` and `num2words`:
+If the API reports that it cannot import or load the multimodal processor,
+synchronize the environment and restart the automatically reloading server:
 
 ```bash
 .venv/bin/python -m pip install -r requirements.txt
@@ -131,7 +141,7 @@ ATLASMIND_REQUEST_TIMEOUT_SECONDS=20
 ATLASMIND_CRAWL_DELAY_SECONDS=1
 ATLASMIND_POSTGRES_DSN=postgresql://debarunlahiri@localhost:5432/atlasmind
 ATLASMIND_COMPUTE_DEVICE=mps
-ATLASMIND_MULTIMODAL_MODEL_ID=HuggingFaceTB/SmolVLM2-500M-Video-Instruct
+ATLASMIND_MULTIMODAL_MODEL_ID=Qwen/Qwen2.5-VL-3B-Instruct
 ATLASMIND_MODEL_LOCAL_FILES_ONLY=false
 ATLASMIND_GENERATOR_MAX_CONTEXT_CHARACTERS=4000
 ATLASMIND_WEB_SEARCH_USER_AGENT=AtlasMindWebCrawler/0.7 (your-contact@example.com)
@@ -456,13 +466,13 @@ endpoint for clients that prefer separate URLs.
 
 ## Important limitations
 
-- SmolVLM2 is a pretrained third-party open-source model; AtlasMind does not own its
+- Qwen2.5-VL is a pretrained third-party open-source model; AtlasMind does not own its
   architecture, tokenizer, training data, or base weights.
 - The model can produce inaccurate answers. Wikipedia retrieval and source links help
   grounding but do not guarantee correctness. Fresh web content is also untrusted and
   may be incomplete, malicious, or wrong.
-- A 500M model prioritizes memory usage and local speed over the quality of larger
-  multimodal models.
+- The 3B model improves quality but uses more unified memory and generates more slowly
+  than the previous 500M checkpoint.
 - Image understanding, MPS execution, generation quality, dependency compatibility,
   PostgreSQL connectivity, and model download were not runtime-tested during this
   source-only change.

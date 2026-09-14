@@ -174,7 +174,7 @@ returns an explicit insufficient-evidence message with an empty `sources` array:
 ```json
 {
   "answer": "I could not find reliable local or live-web sources for this current question, so I cannot give a factual answer without risking invented information. Try a shorter query that includes the full names of the people and the specific event.",
-  "model": "HuggingFaceTB/SmolVLM2-500M-Video-Instruct",
+  "model": "Qwen/Qwen2.5-VL-3B-Instruct",
   "sources": [],
   "image_id": null,
   "conversation_id": "2dfbc42d-67a2-40fd-bbe4-cf95335a804e",
@@ -246,7 +246,7 @@ content-type: application/json
 
 {
   "answer": "Artificial intelligence is the field of building systems that perform tasks associated with human intelligence [1].",
-  "model": "HuggingFaceTB/SmolVLM2-500M-Video-Instruct",
+  "model": "Qwen/Qwen2.5-VL-3B-Instruct",
   "sources": [
     {
       "number": 1,
@@ -339,7 +339,7 @@ connection: keep-alive
 x-accel-buffering: no
 
 event: metadata
-data: {"model":"HuggingFaceTB/SmolVLM2-500M-Video-Instruct","sources":[{"number":1,"title":"Artificial neural network","url":"https://en.wikipedia.org/wiki/Neural_network_(machine_learning)","excerpt":"A neural network is a machine learning model...","source_type":"wikipedia","published_at":null,"search_engine":null}],"image_id":null,"conversation_id":"2dfbc42d-67a2-40fd-bbe4-cf95335a804e","chat_name":"Neural Networks Learn","history_saved":true,"conversation_context_used":false,"search_activity":[]}
+data: {"model":"Qwen/Qwen2.5-VL-3B-Instruct","sources":[{"number":1,"title":"Artificial neural network","url":"https://en.wikipedia.org/wiki/Neural_network_(machine_learning)","excerpt":"A neural network is a machine learning model...","source_type":"wikipedia","published_at":null,"search_engine":null}],"image_id":null,"conversation_id":"2dfbc42d-67a2-40fd-bbe4-cf95335a804e","chat_name":"Neural Networks Learn","history_saved":true,"conversation_context_used":false,"search_activity":[]}
 
 event: token
 data: {"text":"Neural networks "}
@@ -410,9 +410,9 @@ content-type: application/json
 {"detail":"The local model or PostgreSQL service is unavailable"}
 ```
 
-If the detail mentions `SmolVLMProcessor`, install the updated requirements and
-restart the server. SmolVLM's processor requires `num2words` and the vision stack
-provided by a `torchvision` build compatible with the installed `torch` version:
+If the detail mentions the multimodal processor, install the updated requirements
+and restart the server. The vision stack requires a `torchvision` build compatible
+with the installed `torch` version:
 
 ```bash
 .venv/bin/python -m pip install -r requirements.txt

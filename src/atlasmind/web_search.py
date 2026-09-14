@@ -18,7 +18,6 @@ VALID_FRESHNESS = {"pd", "pw", "pm", "py"}
 FRESHNESS_PARAMETERS = {"pd": "d", "pw": "w", "pm": "m", "py": "y"}
 MAX_PAGE_CHARACTERS = 12_000
 SEARCH_STOP_WORDS = {
-    "about",
     "agreeing",
     "and",
     "are",

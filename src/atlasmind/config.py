@@ -26,7 +26,7 @@ class Settings(BaseSettings):
     postgres_dsn: str = "postgresql://debarunlahiri@localhost:5432/atlasmind"
     random_seed: int = 42
     compute_device: Literal["mps", "cpu", "auto"] = "mps"
-    multimodal_model_id: str = "HuggingFaceTB/SmolVLM2-500M-Video-Instruct"
+    multimodal_model_id: str = "Qwen/Qwen2.5-VL-3B-Instruct"
     model_local_files_only: bool = False
     generator_max_context_characters: int = Field(default=4000, ge=250, le=50000)
     web_search_user_agent: str = "AtlasMindWebCrawler/0.7 (educational project)"
